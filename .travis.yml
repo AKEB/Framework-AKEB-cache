@@ -2,10 +2,10 @@ language: php
 
 php:
   - 5.4
-#  - 5.6
-#  - 7.0
+  - 5.6
+  - 7.0
   - 7.1
-#  - 7.2
+  - 7.2
 
 env: MEMCACHED__HOST=localhost
 
@@ -13,23 +13,12 @@ before_install:
   - PHP_INI=~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
   - |
     if [[ $TRAVIS_PHP_VERSION =~ 5.[456] ]]; then
-      echo "extension = memcached.so" >> $PHP_INI;
-      echo yes | pecl install apcu-4.0.10;
-      echo "apc.enabled = 1" >> $PHP_INI;
-      echo "apc.enable_cli = 1" >> $PHP_INI;
-      phpenv config-rm xdebug.ini;
+      echo "extension = memcache.so" >> $PHP_INI;
     fi;
   - |
     if [[ $TRAVIS_PHP_VERSION =~ 7.[102] ]]; then
-      apt-get install -y php-memcached;
-      echo "extension = memcached.so" >> $PHP_INI;
-      echo yes | pecl install apcu-5.1.2;
-      echo "apc.enabled = 1" >> $PHP_INI;
-      echo "apc.enable_cli = 1" >> $PHP_INI;
-    fi;
-  - |
-    if [[ $TRAVIS_PHP_VERSION =~ 7.[0] ]]; then
-      phpenv config-rm xdebug.ini;
+      apt-get install -y php-memcache;
+      echo "extension = memcache.so" >> $PHP_INI;
     fi;
   - curl -s http://getcomposer.org/installer | php
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
