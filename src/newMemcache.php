@@ -25,15 +25,16 @@ class newMemcache {
 	}
 
 	public function connect($host, $port=11211) {
-		if ($this->memcache) {
-			if (@$this->memcache_object->pconnect($host, $port)) {
-				$this->memcache_object->setCompressThreshold(256*1024*1024);
-				return true;
+		if ($this->memcached) {
+			if ($this->memcache_object->addServer($host, $port)) {
+				$statuses = $this->memcache_object->getStats();
+				var_export($statuses[$host.":".$port]);
+				return isset($statuses[$host.":".$port]) && $statuses[$host.":".$port]["pid"] > 0;
 			}
 			return false;
-		} elseif ($this->memcached) {
-			if ($this->memcache_object->addServer($host, $port)) {
-
+		} elseif ($this->memcache) {
+			if (@$this->memcache_object->pconnect($host, $port)) {
+				$this->memcache_object->setCompressThreshold(256*1024*1024);
 				return true;
 			}
 			return false;
@@ -42,16 +43,16 @@ class newMemcache {
 	}
 
 	public function set($key, $value, $expiration=0) {
-		if ($this->memcache) {
-			return @$this->memcache_object->set($key, $value, MEMCACHE_COMPRESSED, $expiration);
-		} elseif ($this->memcached) {
+		if ($this->memcached) {
 			return $this->memcache_object->set($key, $value, $expiration);
+		} elseif ($this->memcache) {
+			return @$this->memcache_object->set($key, $value, MEMCACHE_COMPRESSED, $expiration);
 		}
 		return false;
 	}
 
 	public function get($key) {
-		if ($this->memcache || $this->memcached) {
+		if ($this->memcached || $this->memcache) {
 			return $this->memcache_object->get($key);
 		}
 		return null;
