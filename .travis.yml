@@ -7,29 +7,14 @@ php:
   - 7.1
   - 7.2
 
-env: MEMCACHED__HOST=localhost
-
 before_install:
   - PHP_INI=~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
-  - |
-    if [[ $TRAVIS_PHP_VERSION =~ 5.[456] ]]; then
-      echo "extension = memcache.so" >> $PHP_INI;
-    fi;
-  - |
-    if [[ $TRAVIS_PHP_VERSION =~ 7.[012] ]]; then
-      sudo apt-get install -y php-memcache;
-      echo "extension = memcache.so" >> $PHP_INI;
-    fi;
-  - curl -s http://getcomposer.org/installer | php
+  - echo "extension = memcache.so" >> $PHP_INI;
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
-  - php composer.phar install --prefer-source --no-interaction
   - phpenv rehash
 
 install:
   - composer install
-
-#before_script:
-#  - memcached -p 11211 -d
 
 script:
   - php vendor/bin/phpunit -c phpunit.xml
