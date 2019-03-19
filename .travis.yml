@@ -8,9 +8,9 @@ php:
   - 7.2
 
 before_install:
-  - pecl install memcache
+  - echo yes | pecl install memcache
   - echo "extension=memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-
+  - phpenv config-rm xdebug.ini
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   - phpenv rehash
 
@@ -18,6 +18,6 @@ install:
   - composer install
 
 script:
-  - php vendor/bin/phpunit -c phpunit.xml
+  - php vendor/bin/phpunit -c phpunit.xml --no-coverage
 
 services: memcache
