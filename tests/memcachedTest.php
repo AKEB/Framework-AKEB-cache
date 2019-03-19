@@ -14,7 +14,7 @@ class memcachedTest extends PHPUnit\Framework\TestCase {
 
 	public function testMemcacheFunctions() {
 		$memcache_obj = new newMemcache();
-		$status = $memcache_obj->connect('localhost', 11211);
+		$status = $memcache_obj->connect('localhost', 11212);
 		$this->assertTrue($status, 'Connect error');
 		if ($status) {
 			$rand = rand(0, mt_getrandmax());
