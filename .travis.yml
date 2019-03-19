@@ -8,8 +8,14 @@ php:
   - 7.2
 
 before_install:
-  - echo "extension=memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - echo "extension=memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - |
+    if [[ $TRAVIS_PHP_VERSION =~ 5.[456] ]]; then
+          echo "extension=memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    fi;
+  - |
+    if [[ $TRAVIS_PHP_VERSION =~ 7.[012] ]]; then
+          echo "extension=memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    fi;
   - phpenv config-rm xdebug.ini
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   - phpenv rehash
