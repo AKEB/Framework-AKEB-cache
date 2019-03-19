@@ -2,6 +2,7 @@
 
 class memcacheTest extends PHPUnit\Framework\TestCase {
 	public function testMemcacheFunctions() {
+		phpinfo();
 		$this->assertTrue(class_exists('Memcache') ? true : false);
 		$this->assertTrue(function_exists('memcache_get') ? true : false);
 
