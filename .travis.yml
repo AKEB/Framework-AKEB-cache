@@ -8,8 +8,9 @@ php:
   - 7.2
 
 before_install:
-  - PHP_INI=~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
-  - echo "extension = memcache.so" >> $PHP_INI;
+  - pecl install memcache
+  - echo "extension=memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   - phpenv rehash
 
