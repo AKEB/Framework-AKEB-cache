@@ -3,10 +3,7 @@
 if (extension_loaded('memcache')) {
 class memcacheTest extends PHPUnit\Framework\TestCase {
 	public function testMemcacheFunctions() {
-		var_export(get_loaded_extensions());
-
 		$this->assertTrue(class_exists('Memcache') ? true : false , 'Class Error');
-		$this->assertTrue(function_exists('memcache_get') ? true : false, 'Function Error');
 
 		$memcache_obj = new Memcache;
 		if (@$memcache_obj->addServer('localhost', 11211)) {
