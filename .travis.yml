@@ -28,8 +28,8 @@ before_install:
 install:
   - composer install
 
-before_script:
-  - memcached -p 11211 -d
+#before_script:
+#  - memcached -p 11211 -d
 
 script:
   - php vendor/bin/phpunit -c phpunit.xml
