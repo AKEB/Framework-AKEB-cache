@@ -26,4 +26,4 @@ install:
 script:
   - php vendor/bin/phpunit -c phpunit.xml --no-coverage
 
-services: memcache
+#services: memcache
