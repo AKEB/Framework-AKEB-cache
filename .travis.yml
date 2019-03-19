@@ -23,6 +23,9 @@ before_install:
 install:
   - composer install
 
+#before_script:
+#  - memcached -p 11212 -d
+
 script:
   - php vendor/bin/phpunit -c phpunit.xml --no-coverage
 
