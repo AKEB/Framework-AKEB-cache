@@ -16,8 +16,8 @@ before_install:
       echo "extension = memcache.so" >> $PHP_INI;
     fi;
   - |
-    if [[ $TRAVIS_PHP_VERSION =~ 7.[102] ]]; then
-      apt-get install -y php-memcache;
+    if [[ $TRAVIS_PHP_VERSION =~ 7.[012] ]]; then
+      sudo apt-get install -y php-memcache;
       echo "extension = memcache.so" >> $PHP_INI;
     fi;
   - curl -s http://getcomposer.org/installer | php
