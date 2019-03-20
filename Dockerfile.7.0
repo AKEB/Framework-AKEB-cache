@@ -1,0 +1,37 @@
+FROM php:7.0
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y \
+        git \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libssl-dev \
+        libmemcached-dev \
+        libz-dev \
+        zlib1g-dev \
+        libsqlite3-dev \
+        zip \
+        libxml2-dev \
+        libcurl3-dev \
+        libedit-dev \
+        libpspell-dev \
+        libldap2-dev \
+        unixodbc-dev \
+        libpq-dev
+
+RUN ln -fs /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/
+
+RUN pecl install memcached \
+    && docker-php-ext-enable memcached
+
+RUN curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/bin
+ENV PATH /root/.composer/vendor/bin:$PATH
+ENV PATH /opt/code/vendor/bin:$PATH
+
+RUN apt-get install memcached -y
+
+ENTRYPOINT ["/opt/code/entrypoint.sh"]
+
+CMD ["/bin/bash"]

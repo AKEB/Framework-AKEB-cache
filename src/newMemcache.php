@@ -28,7 +28,6 @@ class newMemcache {
 		if ($this->memcached) {
 			if ($this->memcache_object->addServer($host, $port)) {
 				$statuses = $this->memcache_object->getStats();
-				var_export($statuses[$host.":".$port]);
 				return isset($statuses[$host.":".$port]) && $statuses[$host.":".$port]["pid"] > 0;
 			}
 			return false;
