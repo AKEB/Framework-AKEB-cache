@@ -45,7 +45,16 @@ class newMemcache {
 		if ($this->memcached) {
 			return $this->memcache_object->set($key, $value, $expiration);
 		} elseif ($this->memcache) {
-			return @$this->memcache_object->set($key, $value, MEMCACHE_COMPRESSED, $expiration);
+			return @$this->memcache_object->set($key, $value, 0, $expiration);
+		}
+		return false;
+	}
+
+	public function add($key, $value, $expiration=0) {
+		if ($this->memcached) {
+			return $this->memcache_object->add($key, $value, $expiration);
+		} elseif ($this->memcache) {
+			return @$this->memcache_object->add($key, $value, 0, $expiration);
 		}
 		return false;
 	}
@@ -53,6 +62,13 @@ class newMemcache {
 	public function get($key) {
 		if ($this->memcached || $this->memcache) {
 			return $this->memcache_object->get($key);
+		}
+		return null;
+	}
+
+	public function delete($key, $timeout=0) {
+		if ($this->memcached || $this->memcache) {
+			return $this->memcache_object->delete($key, $timeout);
 		}
 		return null;
 	}

@@ -32,6 +32,6 @@ ENV PATH /opt/code/vendor/bin:$PATH
 
 RUN apt-get install memcached -y
 
-ENTRYPOINT ["/opt/code/entrypoint.sh"]
+ENTRYPOINT ["/opt/entrypoint.sh"]
 
 CMD ["/bin/bash"]

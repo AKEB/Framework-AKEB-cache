@@ -38,6 +38,6 @@ RUN apt-get install memcached -y
 # COPY entrypoint.sh /opt/
 # RUN chmod +x /opt/entrypoint.sh
 
-ENTRYPOINT ["/opt/code/entrypoint.sh"]
+ENTRYPOINT ["/opt/entrypoint.sh"]
 
 CMD ["/bin/bash"]

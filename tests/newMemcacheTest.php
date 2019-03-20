@@ -2,7 +2,7 @@
 
 use AKEB\Cache\newMemcache;
 
-class memcachedTest extends PHPUnit\Framework\TestCase {
+class newMemcacheTest extends PHPUnit\Framework\TestCase {
 
 	public function testClassExists() {
 		if (extension_loaded('memcached')) {
@@ -22,8 +22,15 @@ class memcachedTest extends PHPUnit\Framework\TestCase {
 		$this->assertTrue($status, 'Connect error');
 		$rand = rand(0, mt_getrandmax());
 		$memcache_obj->set('TestKey', $rand, 10);
-		$cache_rand = $memcache_obj->get('TestKey');
-		$this->assertEquals($rand, $cache_rand, 'set get Error');
+		$this->assertEquals($memcache_obj->get('TestKey'), $rand, 'set get Error');
+
+		$memcache_obj->set('TestKey1', $rand, 20);
+		$memcache_obj->delete('TestKey1');
+		$this->assertNotEquals($memcache_obj->get('TestKey1'), $rand, 'set get Error');
+
+		$memcache_obj->add('TestKey2', "test", 20);
+		$memcache_obj->add('TestKey2', "test2", 20);
+		$this->assertEquals($memcache_obj->get('TestKey2'), "test", 'set get Error');
 
 	}
 

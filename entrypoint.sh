@@ -1,16 +1,22 @@
 #!/bin/bash
 
-mkdir src
-mkdir tests
-
-cp code/src/* ./src/
-cp code/tests/*.php ./tests/
-
-cp code/phpunit.xml ./
-cp code/composer.json ./
-
 memcached -p 11211 -d -u memcache
+memcached -p 11212 -d -u memcache
 
-composer install
+
+# mkdir src
+# mkdir tests
+# mkdir vendor
+
+# cp -r code/src/* ./src/
+# cp -r code/tests/* ./tests/
+
+# cp code/phpunit.xml ./
+# cp code/composer.json ./
+
+# cp -r code/vendor/* ./vendor/
+# cp code/composer.lock ./
+
+# composer install
 
 php ./vendor/bin/phpunit --no-coverage
