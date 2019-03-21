@@ -56,7 +56,7 @@ require_once("../vendor/autoload.php");
 
 ## Example use Cache
 
-### Memcached
+### Memcached cache
 ```
 <?php
 global $CACHE_SERVERS;
@@ -83,7 +83,7 @@ echo $dateString.PHP_EOL;
 ?>
 ```
 
-### File
+### File cache
 ```
 <?php
 define('PATH_CACHE', './tmp/'); // Cache file directory
@@ -107,3 +107,6 @@ if (!$cache->isValid() && $cache->tryLock()) { // If cache not valid and we can 
 echo $dateString.PHP_EOL;
 ?>
 ```
+
+See the `examples` folder for more details.
+

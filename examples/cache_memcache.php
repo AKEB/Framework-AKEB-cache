@@ -12,10 +12,12 @@ require_once("../vendor/autoload.php");
 $dateString = '';
 
 $cache = new \Cache('testDate','default');
-if (!$cache->isValid() && $cache->tryLock()) {
+if (!$cache->isValid()) {
 	$dateString = date("Y-m-d H:i:s", time());
-	$cache->update($dateString,600);
-	$cache->freeLock();
+	if ($cache->tryLock()) {
+		$cache->update($dateString,600);
+		$cache->freeLock();
+	}
 } else {
 	$dateString = $cache->get();
 }
