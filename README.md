@@ -36,22 +36,26 @@ or
 ## If you use memcached
 
 ```
+<?php
 global $CACHE_SERVERS;
 $CACHE_SERVERS = [
     'default' => ['host'=>'localhost', 'port' => 11211]
 ];
 
 require_once("../vendor/autoload.php");
+?>
 ```
 
 ## If you use FileCache
 
 ```
+<?php
 define('USE_FILE_CACHE', true); // Forcible use of file cache
 
 define('PATH_CACHE', '/opt/www/cache/'); // Cache file directory
 
 require_once("../vendor/autoload.php");
+?>
 ```
 
 ## Example use Cache
