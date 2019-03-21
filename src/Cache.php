@@ -6,6 +6,7 @@ $globalLockId = rand();
 global $mcServers;
 $mcServers = array();
 
+global $CACHE_SERVERS;
 /**
  * $CACHE_SERVERS = [
  * 		'default' => ['host'=>'localhost', 'port' => 11211],

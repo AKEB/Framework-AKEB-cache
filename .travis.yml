@@ -17,6 +17,7 @@ before_install:
           echo "extension=memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     fi;
   - phpenv config-rm xdebug.ini
+  - echo 'date.timezone = "Europe/Moscow"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   - phpenv rehash
 
