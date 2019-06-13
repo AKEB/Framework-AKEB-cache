@@ -51,8 +51,12 @@ class Cache_Memcache {
 		if (!$this->haveLock() && !$this->tryLock()) return false;
 		if ($ttl == 0) $ttl = 60;
 		$ttlInfo = array("createTime"=>time(), "ttl" => $ttl);
-		$status = $this->mcServer()->set($this->cacheId(), $data, $ttl * self::TTL_MULTIPLIER);
-		if ($status) $this->mcServer()->set($this->cacheId().".ttl", $ttlInfo, $ttl * self::TTL_MULTIPLIER);
+		$memcacheTTL = $ttl * self::TTL_MULTIPLIER;
+		if ($memcacheTTL >= 30*86400) {
+			$memcacheTTL = time()+$memcacheTTL;
+		}
+		$status = $this->mcServer()->set($this->cacheId(), $data, $memcacheTTL);
+		if ($status) $this->mcServer()->set($this->cacheId().".ttl", $ttlInfo, $memcacheTTL);
 		$this->freeLock();
 		return $status;
 	}
