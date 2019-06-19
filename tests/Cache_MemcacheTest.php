@@ -43,6 +43,21 @@ class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 		$this->assertTrue($cache->isValid());
 		$this->assertEquals($cache->get(), $value);
 
+		$key = 'testMemcacheKey1_'.time();
+		$value = "testMemcacheValue1_".time();
+		$cache = new Cache_Memcache($key, 'global');
+		$this->assertTrue($cache->tryLock());
+		$cache->freeLock();
+		if ($cache->tryLock()) {
+			$cache->update($value, 3600);
+			$cache->freeLock();
+		} else {
+			$this->assertTrue(false, 'Error lock cache key');
+		}
+		$this->assertTrue($cache->isValid());
+		$this->assertEquals($cache->get(), $value);
+
+
 		$cache2 = new Cache_Memcache($key, 'default');
 		if ($cache2->tryLock()) {
 			$cache2->update("true", 3600);
