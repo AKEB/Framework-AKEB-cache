@@ -26,7 +26,7 @@ class newMemcache {
 
 	public function connect($host, $port=11211) {
 		if ($this->memcached) {
-			if ($this->memcache_object->addServer($host, $port)) {
+			if (@$this->memcache_object->addServer($host, $port)) {
 				$statuses = $this->memcache_object->getStats();
 				return isset($statuses[$host.":".$port]) && $statuses[$host.":".$port]["pid"] > 0;
 			}
@@ -43,7 +43,7 @@ class newMemcache {
 
 	public function set($key, $value, $expiration=0) {
 		if ($this->memcached) {
-			return $this->memcache_object->set($key, $value, $expiration);
+			return @$this->memcache_object->set($key, $value, $expiration);
 		} elseif ($this->memcache) {
 			return @$this->memcache_object->set($key, $value, 0, $expiration);
 		}
@@ -52,7 +52,7 @@ class newMemcache {
 
 	public function add($key, $value, $expiration=0) {
 		if ($this->memcached) {
-			return $this->memcache_object->add($key, $value, $expiration);
+			return @$this->memcache_object->add($key, $value, $expiration);
 		} elseif ($this->memcache) {
 			return @$this->memcache_object->add($key, $value, 0, $expiration);
 		}
@@ -61,14 +61,14 @@ class newMemcache {
 
 	public function get($key) {
 		if ($this->memcached || $this->memcache) {
-			return $this->memcache_object->get($key);
+			return @$this->memcache_object->get($key);
 		}
 		return null;
 	}
 
 	public function delete($key, $timeout=0) {
 		if ($this->memcached || $this->memcache) {
-			return $this->memcache_object->delete($key, $timeout);
+			return @$this->memcache_object->delete($key, $timeout);
 		}
 		return null;
 	}
