@@ -40,7 +40,7 @@ class Cache_File {
 
 	public function isValid() {
 		if (!$this->cacheId()) return false;
-		if (defined('NO_CACHE') && NO_CACHE) return false;
+		if (defined('NO_CACHE') && constant('NO_CACHE')) return false;
 		if (isset($_REQUEST['no_cache']) && $_REQUEST['no_cache']) return false;
 		if (!file_exists($this->_fname())) return false;
 		return @filemtime($this->_fname()) > time();

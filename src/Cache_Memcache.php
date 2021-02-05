@@ -27,9 +27,12 @@ class Cache_Memcache {
 
 	public function isValid() {
 		if (!$this->mcServer() || !$this->cacheId()) return false;
-		if (defined('NO_CACHE') && NO_CACHE) return false;
+		if (defined('NO_CACHE') && constant('NO_CACHE')) return false;
 		if (isset($_REQUEST['no_cache']) && $_REQUEST['no_cache']) return false;
 		$ttlInfo = $this->mcServer()->get($this->cacheId().".ttl");
+		if (!is_array($ttlInfo) && $ttlInfo) {
+			$ttlInfo = @unserialize($ttlInfo);
+		}
 		return $ttlInfo !== false ? ((int)$ttlInfo["createTime"] + (int)$ttlInfo["ttl"]) > time() : false;
 	}
 
