@@ -30,10 +30,12 @@ class Cache_File {
 	public function &get() {
 		if (!$this->cacheId()) return false;
 		$data = false;
+		$i = 3;
 		do {	// some kind of race
 			if (!file_exists($this->_fname())) break;
 			$data = @file_get_contents($this->_fname());
-		} while (!$data && !$i++);
+			$i--;
+		} while (!$data && $i > 0);
 		if ($data) $data = unserialize($data);
 		return $data;
 	}
@@ -44,6 +46,12 @@ class Cache_File {
 		if (isset($_REQUEST['no_cache']) && $_REQUEST['no_cache']) return false;
 		if (!file_exists($this->_fname())) return false;
 		return @filemtime($this->_fname()) > time();
+	}
+
+	public function getTTL() {
+		if (!$this->cacheId()) return 0;
+		if (!file_exists($this->_fname())) return 0;
+		return filemtime($this->_fname());
 	}
 
 	public function tryLock() {

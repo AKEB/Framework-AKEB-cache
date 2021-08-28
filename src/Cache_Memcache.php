@@ -36,6 +36,12 @@ class Cache_Memcache {
 		return $ttlInfo !== false ? ((int)$ttlInfo["createTime"] + (int)$ttlInfo["ttl"]) > time() : false;
 	}
 
+	public function getTTL() {
+		if (!$this->mcServer() || !$this->cacheId()) return 0;
+		$ttlInfo = $this->mcServer()->get($this->cacheId().".ttl");
+		return $ttlInfo !== false ? ((int)$ttlInfo["createTime"] + (int)$ttlInfo["ttl"]) : 0;
+	}
+
 	public function tryLock() {
 		if (!$this->mcServer() || !$this->cacheId()) return false;
 		if ($this->haveLock()) return true;

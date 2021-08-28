@@ -41,7 +41,7 @@ class Cache {
 	function __construct($cacheId, $server_name='default', $force_use_file=false) {
 		global $mcServers;
 		if (
-			(defined('USE_FILE_CACHE') && USE_FILE_CACHE) ||
+			(defined('USE_FILE_CACHE') && constant('USE_FILE_CACHE')) ||
 			(!extension_loaded('memcached') && !extension_loaded('memcache') && !class_exists('Memcached') && !class_exists('Memcache')) ||
 			(!$mcServers) || $force_use_file
 		) {
@@ -57,6 +57,10 @@ class Cache {
 
 	public function isValid() {
 		return $this->cacheObject->isValid();
+	}
+
+	public function getTTL() {
+		return $this->cacheObject->getTTL();
 	}
 
 	public function tryLock() {
