@@ -31,5 +31,5 @@ echo "zend_extension=xdebug.so" >> /usr/local/etc/php/php.ini
 echo "extension=memcached.so" >> /usr/local/etc/php/php.ini
 
 
-memcached -p 11211 -d -u memcache
-memcached -p 11212 -d -u memcache
+# memcached -p 11211 -d -u memcache
+# memcached -p 11212 -d -u memcache

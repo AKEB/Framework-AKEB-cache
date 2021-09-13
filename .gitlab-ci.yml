@@ -6,6 +6,8 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   - php composer.phar install --prefer-source --no-interaction
+  - memcached -p 11211 -d -u memcache
+  - memcached -p 11212 -d -u memcache
 
 test:7.0:
   image: php:7.0
