@@ -1,11 +1,9 @@
 {
-	"authors": [
-		{
-			"email": "babadzhanyan@corp.mail.ru",
-			"name": "Vadim Babajanyan",
-			"role": "Lead"
-		}
-	],
+	"authors": [{
+		"email": "babadzhanyan@corp.mail.ru",
+		"name": "Vadim Babajanyan",
+		"role": "Lead"
+	}],
 	"autoload": {
 		"classmap": [
 			"./src/"

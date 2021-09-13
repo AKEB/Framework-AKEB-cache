@@ -1,35 +1,43 @@
 # Cache
 
+## Tests
+
+[![pipeline status](https://gitlab.pvt/gapa/mrgs/cache/badges/master/pipeline.svg)](https://gitlab.pvt/gapa/mrgs/cache/-/commits/master)
+[![coverage report](https://gitlab.pvt/gapa/mrgs/cache/badges/master/coverage.svg)](https://gitlab.pvt/gapa/mrgs/cache/-/commits/master)
+
+## Install
+
 composer project akeb/cache
 
 Composer config
-```
+
+```json
 {
-	"require": {
-		"akeb/cache": "^1.0.0"
-	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://git.terrhq.ru/v.babajanyan/cache"
-		}
-	]
+    "require": {
+        "akeb/cache": "^1.0.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://git.terrhq.ru/v.babajanyan/cache"
+        }
+    ]
 }
 ```
 
 or
 
-```
+```json
 {
-	"require": {
-		"akeb/cache": "^1.0.0"
-	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/AKEB/cache"
-		}
-	]
+    "require": {
+        "akeb/cache": "^1.0.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/AKEB/cache"
+        }
+    ]
 }
 ```
 
