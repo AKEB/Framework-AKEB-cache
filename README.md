@@ -14,23 +14,7 @@ Composer config
 ```json
 {
     "require": {
-        "akeb/cache": "^1.0.0"
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://git.terrhq.ru/v.babajanyan/cache"
-        }
-    ]
-}
-```
-
-or
-
-```json
-{
-    "require": {
-        "akeb/cache": "^1.0.0"
+        "akeb/cache": "^1.0.5"
     },
     "repositories": [
         {

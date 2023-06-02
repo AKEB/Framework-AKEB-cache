@@ -26,11 +26,18 @@ class newMemcache {
 
 	public function connect($host, $port=11211) {
 		if ($this->memcached) {
-			if (@$this->memcache_object->addServer($host, $port)) {
-				$statuses = $this->memcache_object->getStats();
-				return isset($statuses[$host.":".$port]) && $statuses[$host.":".$port]["pid"] > 0;
+			$servers = @$this->memcache_object->getServerList();
+			foreach ($servers as $server) {
+				if ($server['host'] == $host && $server['port'] == $port) {
+					return true;
+				}
 			}
-			return false;
+			return @$this->memcache_object->addServer($host, $port);
+//			if (@$this->memcache_object->addServer($host, $port)) {
+//				$statuses = $this->memcache_object->getStats();
+//				return isset($statuses[$host.":".$port]) && $statuses[$host.":".$port]["pid"] > 0;
+//			}
+//			return false;
 		} elseif ($this->memcache) {
 			if (@$this->memcache_object->pconnect($host, $port)) {
 				$this->memcache_object->setCompressThreshold(256*1024*1024);
