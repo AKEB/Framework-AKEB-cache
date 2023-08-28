@@ -20,6 +20,12 @@ Composer config
 }
 ```
 
+or
+
+```bash
+composer require akeb/cache
+```
+
 ## If you use memcached
 
 ```php
