@@ -1,4 +1,4 @@
-FROM php:7.2
+FROM php:8.0
 
 USER root
 
@@ -39,15 +39,13 @@ RUN apt-get install -y --allow-unauthenticated \
 RUN PHP_OPENSSL=yes \
 	&& PHP_ENABLE_XDEBUG=1 \
 	&& ln -fs /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/ \
-	&& pecl install memcached msgpack xdebug-2.9.0 \
+	&& pecl install memcached msgpack xdebug \
 	&& docker-php-ext-enable memcached msgpack xdebug \
 	&& pecl bundle -d /usr/src/php/ext/ igbinary \
 	&& docker-php-ext-configure gd \
-	--with-gd --with-webp-dir --with-jpeg-dir \
-	--with-png-dir --with-zlib-dir --with-xpm-dir \
-	--with-freetype-dir \
-	&& docker-php-ext-install exif xml zip bcmath gd intl mysqli \
-	pdo_mysql gettext pcntl sysvmsg sysvsem sysvshm xsl calendar shmop \
+	--with-webp --with-jpeg --with-freetype \
+	&& docker-php-ext-install exif xml filter zip bcmath gd intl mysqli \
+	pdo_mysql gettext pcntl sysvmsg sysvsem sysvshm xsl calendar ffi shmop \
 	sockets opcache igbinary 
 
 RUN echo "xdebug.mode=coverage" > /usr/local/etc/php/conf.d/xdebug.ini \

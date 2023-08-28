@@ -49,7 +49,7 @@ class newMemcache {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->set($key, $value, $expiration);
 			if ($ret === false) {
-				$this->errorMessage(__METHOD__);
+				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
 		} elseif ($this->memcache) {
@@ -62,7 +62,7 @@ class newMemcache {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->add($key, $value, $expiration);
 			if ($ret === false && $ret !== \Memcached::RES_NOTSTORED) {
-				$this->errorMessage(__METHOD__);
+				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
 		} elseif ($this->memcache) {
@@ -75,7 +75,7 @@ class newMemcache {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->get($key);
 			if ($ret === false && $ret !== \Memcached::RES_NOTFOUND) {
-				$this->errorMessage(__METHOD__);
+				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
 		} else if ($this->memcache) {
@@ -88,7 +88,7 @@ class newMemcache {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->delete($key, $timeout);
 			if ($ret === false && $ret !== \Memcached::RES_NOTFOUND) {
-				$this->errorMessage(__METHOD__);
+				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
 		} else if ($this->memcache) {
@@ -97,10 +97,10 @@ class newMemcache {
 		return null;
 	}
 
-	private function errorMessage($message) {
+	private function errorMessage($message, $key='') {
 		if ($this->disableErrMsg) return;
 		$err_code = $this->memcache_object->getResultCode();
 		$err_msg = $this->memcache_object->getResultMessage();
-		error_log($message.' error: ('.$err_code.') - '.$err_msg);
+		error_log($message.' '.$key.' error: ('.$err_code.') - '.$err_msg);
 	}
 }

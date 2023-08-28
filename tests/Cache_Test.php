@@ -13,7 +13,7 @@ class Cache_Test extends PHPUnit\Framework\TestCase {
 			'global' => ['host'=>'localhost', 'port' => 11212],
 		];
 		foreach ($CACHE_SERVERS as $server_name=>$server) {
-			$mcServers[$server_name] = new \AKEB\Cache\newMemcache();
+			$mcServers[$server_name] = new \AKEB\Cache\newMemcache(true);
 			if (!@$mcServers[$server_name]->connect($server['host'], $server['port'])) {
 				$mcServers[$server_name] = false;
 			}
