@@ -1,1 +1,0 @@
-{"version":1,"defects":[],"times":{"Cache_FileTest::testClassExists":0.013,"Cache_FileTest::testMemcache":0.028,"Cache_MemcacheTest::testClassExists":0.001,"Cache_MemcacheTest::testMemcache":0.008,"Cache_Test::testClassExists":0.001,"Cache_Test::testMemcache":0.005,"Cache_Test::testFile":0.024,"newMemcacheTest::testClassExists":0,"newMemcacheTest::testMemcacheFunctions":0.002}}
