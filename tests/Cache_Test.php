@@ -6,7 +6,7 @@ class Cache_Test extends PHPUnit\Framework\TestCase {
 	protected $dir;
 	protected $logger;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		global $mcServers;
 		$CACHE_SERVERS = [
 			'default' => ['host'=>'localhost', 'port' => 11211],
@@ -24,7 +24,7 @@ class Cache_Test extends PHPUnit\Framework\TestCase {
 		$this->dir = dir($this->dirname);
 	}
 
-	protected function tearDown() {
+	protected function tearDown(): void {
 		global $mcServers;
 		$mcServers = [];
 

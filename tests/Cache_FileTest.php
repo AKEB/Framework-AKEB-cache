@@ -6,13 +6,13 @@ class Cache_FileTest extends PHPUnit\Framework\TestCase {
 	protected $dir;
 	protected $logger;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		$this->dirname = 'tests/tmp';
 		@mkdir($this->dirname);
 		$this->dir = dir($this->dirname);
 	}
 
-	protected function tearDown() {
+	protected function tearDown(): void {
 		$this->logger = null;
 		while (false !== ($entry = $this->dir->read())) {
 			if ($entry == '.' || $entry == '..') continue;

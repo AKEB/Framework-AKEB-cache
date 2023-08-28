@@ -2,7 +2,7 @@
 
 class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 
-	protected function setUp() {
+	protected function setUp(): void {
 		global $mcServers;
 		$CACHE_SERVERS = [
 			'default' => ['host'=>'localhost', 'port' => 11211],
@@ -16,7 +16,7 @@ class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 		}
 	}
 
-	protected function tearDown() {
+	protected function tearDown(): void {
 		global $mcServers;
 		$mcServers = [];
 	}
