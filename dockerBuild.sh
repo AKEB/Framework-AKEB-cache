@@ -1,8 +1,9 @@
 #!/bin/bash
 
-docker build --rm -f "Dockerfile.7.2" -t babadzhanyan/cache_php-unit:7.2 . --push
-docker build --rm -f "Dockerfile.7.3" -t babadzhanyan/cache_php-unit:7.3 . --push
-docker build --rm -f "Dockerfile.7.4" -t babadzhanyan/cache_php-unit:7.4 . --push
-docker build --rm -f "Dockerfile.8.0" -t babadzhanyan/cache_php-unit:8.0 . --push
-docker build --rm -f "Dockerfile.8.1" -t babadzhanyan/cache_php-unit:8.1 . --push
-docker build --rm -f "Dockerfile.8.2" -t babadzhanyan/cache_php-unit:8.2 . --push
+versions='7.2 7.3 7.4 8.0 8.1 8.2'
+
+for version in ${versions}; do
+	echo "$(tput setaf 16)$(tput setab 2)Build docker image for PHP ${version}$(tput sgr 0)"
+	docker build --rm -f "./docker/Dockerfile.${version}" -t babadzhanyan/cache_php-unit:${version} . --push
+done
+

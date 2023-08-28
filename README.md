@@ -40,7 +40,7 @@ require_once("../vendor/autoload.php");
 ## If you use FileCache
 
 ```php
-define('USE_FILE_CACHE', true); // Forcible use of file cache
+define('USE_FILE_CACHE', true); // Forcing the use of the file cache
 
 define('PATH_CACHE', '/opt/www/cache/'); // Cache file directory
 
@@ -100,3 +100,9 @@ echo $dateString.PHP_EOL;
 ```
 
 See the `examples` folder for more details.
+
+## Run Unit Tests
+
+```bash
+./dockerTest.sh
+```
