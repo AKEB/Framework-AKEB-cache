@@ -1,9 +1,10 @@
 #!/bin/bash
 
-versions='7.2 7.3 7.4 8.0 8.1 8.2'
+versions='7.1 7.2 7.3 7.4 8.0 8.1 8.2'
 #versions='7.3 7.4'
 rm -rf ${PWD}/vendor/ ${PWD}/composer.lock > /dev/null 2>&1
 rm -rf ${PWD}/.phpunit.cache ${PWD}/.phpunit.result.cache > /dev/null 2>&1
+mkdir "${PWD}/docker/composer/" > /dev/null 2>&1
 
 for version in ${versions}; do
 	echo "$(tput setaf 16)$(tput setab 2)Run test for PHP ${version}$(tput sgr 0)"
@@ -16,14 +17,17 @@ for version in ${versions}; do
 	CMD=""
 	CMD="${CMD} memcached -p 11211 -d -u memcache;"
 	CMD="${CMD} memcached -p 11212 -d -u memcache;"
-	CMD="${CMD} composer install --prefer-install=auto --no-interaction;"
 	
+	CMD="${CMD} composer install --prefer-install=auto --no-interaction;"
+	CMD="${CMD} composer update --prefer-install=auto --no-interaction;"
+
 	CMD="${CMD} php ./vendor/bin/phpunit "
 	CMD="${CMD} --no-coverage"
+	#CMD="${CMD} --migrate-configuration"
 	CMD="${CMD} -c ./phpunit_${version}.xml"
 
 	docker run --rm -v "$PWD":/opt -w /opt babadzhanyan/cache_php-unit:${version} /bin/bash -c "${CMD}"
 
 	mv ${PWD}/composer.lock ${lock_file} > /dev/null 2>&1
 	mv ${PWD}/vendor/ ${composer_folder} > /dev/null 2>&1
-done
+done;
