@@ -9,7 +9,7 @@ Composer config
 ```json
 {
     "require": {
-        "akeb/cache": "^1.1.1"
+        "akeb/cache": "^1.1.2"
     },
     "repositories": [
         {

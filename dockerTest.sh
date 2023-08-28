@@ -19,14 +19,14 @@ for version in ${versions}; do
 	CMD="${CMD} memcached -p 11212 -d -u memcache;"
 	
 	CMD="${CMD} composer install --prefer-install=auto --no-interaction;"
-	CMD="${CMD} composer update --prefer-install=auto --no-interaction;"
+	CMD="${CMD} composer update --prefer-install=auto --no-interaction > /dev/null 2>&1;"
 
 	CMD="${CMD} php ./vendor/bin/phpunit "
 	CMD="${CMD} --no-coverage"
 	#CMD="${CMD} --migrate-configuration"
 	CMD="${CMD} -c ./phpunit_${version}.xml"
 
-	docker run --rm -v "$PWD":/opt -w /opt babadzhanyan/cache_php-unit:${version} /bin/bash -c "${CMD}"
+	docker run --rm -v "$PWD":/opt -w /opt babadzhanyan/php-unit:${version} /bin/bash -c "${CMD}"
 
 	mv ${PWD}/composer.lock ${lock_file} > /dev/null 2>&1
 	mv ${PWD}/vendor/ ${composer_folder} > /dev/null 2>&1
