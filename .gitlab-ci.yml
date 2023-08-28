@@ -2,7 +2,7 @@ before_script:
   - export https_proxy=http://m100.cache.pvt:3128
   - export http_proxy=http://m100.cache.pvt:3128
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
-  - php composer.phar install --prefer-source --no-interaction
+  - composer install --prefer-source --no-interaction
   - memcached -p 11211 -d -u memcache
   - memcached -p 11212 -d -u memcache
 
