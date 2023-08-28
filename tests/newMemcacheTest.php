@@ -1,7 +1,5 @@
 <?php
 
-use AKEB\Cache\newMemcache;
-
 class newMemcacheTest extends PHPUnit\Framework\TestCase {
 
 	public function testClassExists() {
@@ -13,11 +11,11 @@ class newMemcacheTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testMemcacheFunctions() {
-		$memcache_obj1 = new newMemcache();
+		$memcache_obj1 = new \AKEB\Cache\newMemcache();
 		$status = $memcache_obj1->connect('localhost', 11288);
 		$this->assertTrue($status, 'Connect status error');
 
-		$memcache_obj = new newMemcache();
+		$memcache_obj = new \AKEB\Cache\newMemcache();
 		$status = $memcache_obj->connect('localhost', 11211);
 		$this->assertTrue($status, 'Connect error');
 		$rand = rand(0, mt_getrandmax());

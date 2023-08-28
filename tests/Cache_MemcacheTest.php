@@ -1,7 +1,5 @@
 <?php
 
-use AKEB\Cache\Cache_Memcache;
-
 class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 
 	protected function setUp() {
@@ -24,14 +22,14 @@ class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testClassExists() {
-		$cache = new Cache_Memcache('testCache');
+		$cache = new \AKEB\Cache\Cache_Memcache('testCache');
 		$this->assertInstanceOf('AKEB\Cache\Cache_Memcache', $cache);
 	}
 
 	public function testMemcache() {
 		$key = 'testMemcacheKey_'.time();
 		$value = "testMemcacheValue_".time();
-		$cache = new Cache_Memcache($key, 'global');
+		$cache = new \AKEB\Cache\Cache_Memcache($key, 'global');
 		$this->assertTrue($cache->tryLock());
 		$cache->freeLock();
 		if ($cache->tryLock()) {
@@ -45,7 +43,7 @@ class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 
 		$key = 'testMemcacheKey1_'.time();
 		$value = "testMemcacheValue1_".time();
-		$cache = new Cache_Memcache($key, 'global');
+		$cache = new \AKEB\Cache\Cache_Memcache($key, 'global');
 		$this->assertTrue($cache->tryLock());
 		$cache->freeLock();
 		if ($cache->tryLock()) {
@@ -58,7 +56,7 @@ class Cache_MemcacheTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals($cache->get(), $value);
 
 
-		$cache2 = new Cache_Memcache($key, 'default');
+		$cache2 = new \AKEB\Cache\Cache_Memcache($key, 'default');
 		if ($cache2->tryLock()) {
 			$cache2->update("true", 3600);
 			$cache2->freeLock();

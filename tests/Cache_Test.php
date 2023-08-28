@@ -2,6 +2,10 @@
 
 class Cache_Test extends PHPUnit\Framework\TestCase {
 
+	protected $dirname;
+	protected $dir;
+	protected $logger;
+
 	protected function setUp() {
 		global $mcServers;
 		$CACHE_SERVERS = [

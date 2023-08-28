@@ -1,8 +1,10 @@
 <?php
 
-use AKEB\Cache\Cache_File;
-
 class Cache_FileTest extends PHPUnit\Framework\TestCase {
+
+	protected $dirname;
+	protected $dir;
+	protected $logger;
 
 	protected function setUp() {
 		$this->dirname = 'tests/tmp';
@@ -22,7 +24,7 @@ class Cache_FileTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function testClassExists() {
-		$cache = new AKEB\Cache\Cache_File('testCache');
+		$cache = new \AKEB\Cache\Cache_File('testCache');
 		$this->assertInstanceOf('AKEB\Cache\Cache_File', $cache);
 
 	}
@@ -32,7 +34,7 @@ class Cache_FileTest extends PHPUnit\Framework\TestCase {
 
 		$key = 'testMemcacheKey_'.time();
 		$value = "testMemcacheValue_".time();
-		$cache = new AKEB\Cache\Cache_File($key, 'global');
+		$cache = new \AKEB\Cache\Cache_File($key, 'global');
 		$this->assertTrue($cache->tryLock());
 		$cache->freeLock();
 		if ($cache->tryLock()) {
@@ -44,7 +46,7 @@ class Cache_FileTest extends PHPUnit\Framework\TestCase {
 		$this->assertTrue($cache->isValid());
 		$this->assertEquals($cache->get(), $value);
 
-		$cache2 = new Cache_File($key, 'default');
+		$cache2 = new \AKEB\Cache\Cache_File($key, 'default');
 		if ($cache2->tryLock()) {
 			$cache2->update("true", 3600);
 			$cache2->freeLock();
