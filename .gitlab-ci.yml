@@ -9,19 +9,12 @@ before_script:
   - memcached -p 11211 -d -u memcache
   - memcached -p 11212 -d -u memcache
 
-test:7.0:
-  image: php:7.0
-  tags:
-    - mrgs
-  script:
-    - php vendor/bin/phpunit --coverage-text --colors=never -c phpunit.xml
-
-test:7.1:
-  image: php:7.1
-  tags:
-    - mrgs
-  script:
-    - php vendor/bin/phpunit --coverage-text --colors=never -c phpunit.xml
+# test:7.1:
+#   image: php:7.1
+#   tags:
+#     - mrgs
+#   script:
+#     - php vendor/bin/phpunit --coverage-text --colors=never -c phpunit.xml
 
 test:7.2:
   image: php:7.2
@@ -32,6 +25,13 @@ test:7.2:
 
 test:7.3:
   image: php:7.3
+  tags:
+    - mrgs
+  script:
+    - php vendor/bin/phpunit --coverage-text --colors=never -c phpunit.xml
+
+test:7.4:
+  image: php:7.4
   tags:
     - mrgs
   script:
