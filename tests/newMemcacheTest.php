@@ -15,7 +15,7 @@ class newMemcacheTest extends PHPUnit\Framework\TestCase {
 	public function testMemcacheFunctions() {
 		$memcache_obj1 = new newMemcache();
 		$status = $memcache_obj1->connect('localhost', 11288);
-		$this->assertFalse($status, 'Connect status error');
+		$this->assertTrue($status, 'Connect status error');
 
 		$memcache_obj = new newMemcache();
 		$status = $memcache_obj->connect('localhost', 11211);

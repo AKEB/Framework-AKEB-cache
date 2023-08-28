@@ -1,7 +1,7 @@
 {
 	"authors": [{
-		"email": "babadzhanyan@corp.mail.ru",
-		"name": "Vadim Babajanyan",
+		"email": "vadim.babadzhanyan@my.games",
+		"name": "Vadim Babadzhanyan",
 		"role": "Lead"
 	}],
 	"autoload": {
@@ -16,10 +16,10 @@
 	"license": "Apache-2.0",
 	"name": "akeb/cache",
 	"support": {
-		"email": "babadzhanyan@corp.mail.ru",
-		"issues": "https://git.terrhq.ru/v.babajanyan/cache/issues",
-		"wiki": "https://git.terrhq.ru/v.babajanyan/cache/wiki/",
-		"source": "https://git.terrhq.ru/v.babajanyan/cache"
+		"email": "vadim.babadzhanyan@my.games",
+		"issues": "https://github.com/AKEB/cache/issues",
+		"wiki": "https://github.com/AKEB/cache/wiki",
+		"source": "https://github.com/AKEB/cache"
 	},
 	"type": "library",
 	"require": {
