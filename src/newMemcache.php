@@ -6,13 +6,15 @@ class newMemcache {
 	private $memcache_object;
 	private $memcached = false;
 	private $memcache = false;
+	private $disableErrMsg = false;
 
-	public function __construct() {
+	public function __construct($disableErrMsg = false) {
 		if (extension_loaded('memcached') && class_exists('Memcached')) {
 			$this->memcache_object = new \Memcached();
 			$this->memcache_object->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
 			$this->memcached = true;
 			$this->memcache = false;
+			$this->disableErrMsg = $disableErrMsg;
 		} elseif (extension_loaded('memcache') && class_exists('Memcache')) {
 			$this->memcache_object = new \Memcache();
 			$this->memcached = false;
@@ -33,11 +35,6 @@ class newMemcache {
 				}
 			}
 			return @$this->memcache_object->addServer($host, $port);
-//			if (@$this->memcache_object->addServer($host, $port)) {
-//				$statuses = $this->memcache_object->getStats();
-//				return isset($statuses[$host.":".$port]) && $statuses[$host.":".$port]["pid"] > 0;
-//			}
-//			return false;
 		} elseif ($this->memcache) {
 			if (@$this->memcache_object->pconnect($host, $port)) {
 				$this->memcache_object->setCompressThreshold(256*1024*1024);
@@ -50,7 +47,11 @@ class newMemcache {
 
 	public function set($key, $value, $expiration=0) {
 		if ($this->memcached) {
-			return @$this->memcache_object->set($key, $value, $expiration);
+			$ret = @$this->memcache_object->set($key, $value, $expiration);
+			if ($ret === false) {
+				$this->errorMessage(__METHOD__);
+			}
+			return $ret;
 		} elseif ($this->memcache) {
 			return @$this->memcache_object->set($key, $value, 0, $expiration);
 		}
@@ -59,7 +60,11 @@ class newMemcache {
 
 	public function add($key, $value, $expiration=0) {
 		if ($this->memcached) {
-			return @$this->memcache_object->add($key, $value, $expiration);
+			$ret = @$this->memcache_object->add($key, $value, $expiration);
+			if ($ret === false && $ret !== \Memcached::RES_NOTSTORED) {
+				$this->errorMessage(__METHOD__);
+			}
+			return $ret;
 		} elseif ($this->memcache) {
 			return @$this->memcache_object->add($key, $value, 0, $expiration);
 		}
@@ -67,17 +72,35 @@ class newMemcache {
 	}
 
 	public function get($key) {
-		if ($this->memcached || $this->memcache) {
+		if ($this->memcached) {
+			$ret = @$this->memcache_object->get($key);
+			if ($ret === false && $ret !== \Memcached::RES_NOTFOUND) {
+				$this->errorMessage(__METHOD__);
+			}
+			return $ret;
+		} else if ($this->memcache) {
 			return @$this->memcache_object->get($key);
 		}
 		return null;
 	}
 
 	public function delete($key, $timeout=0) {
-		if ($this->memcached || $this->memcache) {
+		if ($this->memcached) {
+			$ret = @$this->memcache_object->delete($key, $timeout);
+			if ($ret === false && $ret !== \Memcached::RES_NOTFOUND) {
+				$this->errorMessage(__METHOD__);
+			}
+			return $ret;
+		} else if ($this->memcache) {
 			return @$this->memcache_object->delete($key, $timeout);
 		}
 		return null;
 	}
 
+	private function errorMessage($message) {
+		if ($this->disableErrMsg) return;
+		$err_code = $this->memcache_object->getResultCode();
+		$err_msg = $this->memcache_object->getResultMessage();
+		error_log($message.' error: ('.$err_code.') - '.$err_msg);
+	}
 }
