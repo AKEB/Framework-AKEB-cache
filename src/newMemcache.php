@@ -3,6 +3,8 @@
 namespace AKEB\Cache;
 
 class newMemcache {
+
+	private $memcache_class_name = '';
 	private $memcache_object;
 	private $memcached = false;
 	private $memcache = false;
@@ -10,19 +12,21 @@ class newMemcache {
 
 	public function __construct($disableErrMsg = false) {
 		if (extension_loaded('memcached') && class_exists('Memcached')) {
-			$this->memcache_object = new \Memcached();
-			$this->memcache_object->setOption(\Memcached::OPT_LIBKETAMA_COMPATIBLE, true);
+			$this->memcache_class_name = '\\Memcached';
+			$this->memcache_object = new $this->memcache_class_name();
+			$this->memcache_object->setOption($this->memcache_class_name::OPT_LIBKETAMA_COMPATIBLE, true);
 			$this->memcached = true;
 			$this->memcache = false;
 			$this->disableErrMsg = $disableErrMsg;
 		} elseif (extension_loaded('memcache') && class_exists('Memcache')) {
-			$this->memcache_object = new \Memcache();
+			$this->memcache_class_name = '\\Memcache';
+			$this->memcache_object = new $this->memcache_class_name();
 			$this->memcached = false;
 			$this->memcache = true;
 		} else {
 			$this->memcached = false;
 			$this->memcache = false;
-			return null;
+			return;
 		}
 	}
 
@@ -61,7 +65,7 @@ class newMemcache {
 	public function add($key, $value, $expiration=0) {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->add($key, $value, $expiration);
-			if ($ret === false && $ret !== \Memcached::RES_NOTSTORED) {
+			if ($ret === false && $ret !== $this->memcache_class_name::RES_NOTSTORED) {
 				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
@@ -74,7 +78,7 @@ class newMemcache {
 	public function get($key) {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->get($key);
-			if ($ret === false && $ret !== \Memcached::RES_NOTFOUND) {
+			if ($ret === false && $ret !== $this->memcache_class_name::RES_NOTFOUND) {
 				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
@@ -87,7 +91,7 @@ class newMemcache {
 	public function delete($key, $timeout=0) {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->delete($key, $timeout);
-			if ($ret === false && $ret !== \Memcached::RES_NOTFOUND) {
+			if ($ret === false && $ret !== $this->memcache_class_name::RES_NOTFOUND) {
 				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
