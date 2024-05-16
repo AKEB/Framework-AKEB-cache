@@ -18,7 +18,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -35,7 +35,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -52,7 +52,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -69,7 +69,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -86,7 +86,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -103,7 +103,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -120,7 +120,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
@@ -137,7 +137,7 @@ jobs:
       - name: Cleanup
         run: rm -rf vendor composer.lock
       - name: Install memcached
-        run: sudo apt-get install -y memcached
+        run: apt-get install -y memcached
       - name: Install dependencies
         run: composer install --prefer-install=auto --no-interaction
       - name: Run Memcached1
