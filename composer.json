@@ -1,6 +1,6 @@
 {
 	"authors": [{
-		"email": "vadim.babadzhanyan@my.games",
+		"email": "vadimakeb@gmail.com",
 		"name": "Vadim Babadzhanyan",
 		"role": "Lead"
 	}],
@@ -16,16 +16,16 @@
 	"license": "Apache-2.0",
 	"name": "akeb/cache",
 	"support": {
-		"email": "vadim.babadzhanyan@my.games",
-		"issues": "https://github.com/AKEB/cache/issues",
-		"wiki": "https://github.com/AKEB/cache/wiki",
-		"source": "https://github.com/AKEB/cache"
+		"email": "vadimakeb@gmail.com",
+		"issues": "https://github.com/AKEB/Framework-AKEB-cache/issues",
+		"wiki": "https://github.com/AKEB/Framework-AKEB-cache/wiki",
+		"source": "https://github.com/AKEB/Framework-AKEB-cache"
 	},
 	"type": "library",
 	"require": {
 		"php": ">=7.1"
 	},
 	"require-dev": {
-		"phpunit/phpunit": ">=4"
+		"phpunit/phpunit": "@stable"
 	}
 }
