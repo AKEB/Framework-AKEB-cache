@@ -9,12 +9,12 @@ Composer config
 ```json
 {
     "require": {
-        "akeb/cache": "^1.1.2"
+        "akeb/cache": "^1.1.6"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/AKEB/cache"
+            "url": "https://github.com/AKEB/Framework-AKEB-cache"
         }
     ]
 }
@@ -65,10 +65,10 @@ $cache = new \Cache('testDate','default'); // Init Cache Object with name "testD
 if (!$cache->isValid() && $cache->tryLock()) { // If cache not valid and we can lock cache
     // Do something
     $dateString = date("Y-m-d H:i:s", time());
-    
+
     $cache->update($dateString,600); // Update cache data
     $cache->freeLock(); // Free lock
-} else { // Cache valid, or we can't lock cache 
+} else { // Cache valid, or we can't lock cache
     $dateString = $cache->get(); // get data from cache
 }
 
@@ -89,10 +89,10 @@ $cache = new \Cache('testDate','default'); // Init Cache Object with name "testD
 if (!$cache->isValid() && $cache->tryLock()) { // If cache not valid and we can lock cache
     // Do something
     $dateString = date("Y-m-d H:i:s", time());
-    
+
     $cache->update($dateString,600); // Update cache data
     $cache->freeLock(); // Free lock
-} else { // Cache valid, or we can't lock cache 
+} else { // Cache valid, or we can't lock cache
     $dateString = $cache->get(); // get data from cache
 }
 
