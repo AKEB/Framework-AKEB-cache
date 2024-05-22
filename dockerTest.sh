@@ -18,13 +18,13 @@ for version in ${versions}; do
 	mv ${composer_folder} ${PWD}/vendor/ > /dev/null 2>&1
 	CMD=""
 
-	CMD="${CMD} apt-get install -y memcached;"
-	CMD="${CMD} memcached -p 11211 -d -u memcache;"
-	CMD="${CMD} memcached -p 11212 -d -u memcache;"
+	CMD="${CMD} apt-get install -y memcached 1>/dev/null 2>&1;"
+	CMD="${CMD} memcached -p 11211 -d -u memcache 1>/dev/null;"
+	CMD="${CMD} memcached -p 11212 -d -u memcache 1>/dev/null;"
 
 
-	CMD="${CMD} composer install --prefer-install=auto --no-interaction;"
-	CMD="${CMD} composer update --prefer-install=auto --no-interaction > /dev/null 2>&1;"
+	CMD="${CMD} composer install --prefer-install=auto --no-interaction 1>/dev/null 2>&1;"
+	CMD="${CMD} composer update --prefer-install=auto --no-interaction 1>/dev/null 2>&1;"
 
 	CMD="${CMD} php${version} ./vendor/bin/phpunit "
 	CMD="${CMD} --no-coverage"
