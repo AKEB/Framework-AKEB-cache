@@ -65,7 +65,7 @@ class newMemcache {
 	public function add($key, $value, $expiration=0) {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->add($key, $value, $expiration);
-			if ($ret === false && $ret !== $this->memcache_class_name::RES_NOTSTORED) {
+			if ($ret === false && $this->memcache_object->getResultCode() !== $this->memcache_class_name::RES_NOTSTORED) {
 				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
@@ -78,7 +78,7 @@ class newMemcache {
 	public function get($key) {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->get($key);
-			if ($ret === false && $ret !== $this->memcache_class_name::RES_NOTFOUND) {
+			if ($ret === false && $this->memcache_object->getResultCode() !== $this->memcache_class_name::RES_NOTFOUND) {
 				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
@@ -91,7 +91,7 @@ class newMemcache {
 	public function delete($key, $timeout=0) {
 		if ($this->memcached) {
 			$ret = @$this->memcache_object->delete($key, $timeout);
-			if ($ret === false && $ret !== $this->memcache_class_name::RES_NOTFOUND) {
+			if ($ret === false && $this->memcache_object->getResultCode() !== $this->memcache_class_name::RES_NOTFOUND) {
 				$this->errorMessage(__METHOD__.':'.__LINE__, $key);
 			}
 			return $ret;
@@ -100,6 +100,7 @@ class newMemcache {
 		}
 		return null;
 	}
+
 
 	private function errorMessage($message, $key='') {
 		if ($this->disableErrMsg) return;
