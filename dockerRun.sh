@@ -26,6 +26,7 @@ mv ${lock_file} ${HOST_DIR}/composer.lock > /dev/null 2>&1
 mv ${composer_folder} ${HOST_DIR}/vendor/ > /dev/null 2>&1
 CMD=""
 
+CMD="${CMD} apt-get update 1>/dev/null 2>&1;"
 CMD="${CMD} apt-get install -y memcached 1>/dev/null 2>&1;"
 CMD="${CMD} memcached -p 11211 -d -u memcache 1>/dev/null;"
 CMD="${CMD} memcached -p 11212 -d -u memcache 1>/dev/null;"

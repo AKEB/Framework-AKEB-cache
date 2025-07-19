@@ -18,6 +18,7 @@ for version in ${versions}; do
 	mv ${composer_folder} ${PWD}/vendor/ > /dev/null 2>&1
 	CMD=""
 
+	CMD="${CMD} apt-get update 1>/dev/null 2>&1;"
 	CMD="${CMD} apt-get install -y memcached 1>/dev/null 2>&1;"
 	CMD="${CMD} memcached -p 11211 -d -u memcache 1>/dev/null;"
 	CMD="${CMD} memcached -p 11212 -d -u memcache 1>/dev/null;"

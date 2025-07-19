@@ -3,6 +3,7 @@ before_script:
   - export http_proxy=http://m100.cache.pvt:3128
   - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
   - composer install --prefer-install=auto --no-interaction
+  - apt-get update
   - apt-get install -y memcached
   - memcached -p 11211 -d -u memcache
   - memcached -p 11212 -d -u memcache
