@@ -28,6 +28,10 @@ if (
 }
 
 class Cache {
+
+	public static $file_cache_enable = true;
+	public static $memcache_cache_enable = true;
+
 	private $cacheObject = null;
 
 	/**
@@ -40,42 +44,53 @@ class Cache {
 	 */
 	function __construct($cacheId, $server_name='default', $force_use_file=false) {
 		global $mcServers;
-		if (
-			(defined('USE_FILE_CACHE') && constant('USE_FILE_CACHE')) ||
-			(!extension_loaded('memcached') && !extension_loaded('memcache') && !class_exists('Memcached') && !class_exists('Memcache')) ||
-			(!$mcServers) || $force_use_file
-		) {
-			$this->cacheObject = new \AKEB\Cache\Cache_File($cacheId, $server_name);
-		} else {
+		$file_cache_enable = static::$file_cache_enable;
+		$memcache_cache_enable = static::$memcache_cache_enable;
+
+		if ($force_use_file || (defined('USE_FILE_CACHE') && constant('USE_FILE_CACHE'))) {
+			$file_cache_enable = true;
+			$memcache_cache_enable = false;
+		}
+		if (!extension_loaded('memcached') && !extension_loaded('memcache') && !class_exists('Memcached') && !class_exists('Memcache')) {
+			$memcache_cache_enable = false;
+		}
+		if (!$mcServers) {
+			$mcServers = [];
+			$memcache_cache_enable = false;
+		}
+
+		if ($memcache_cache_enable) {
 			$this->cacheObject = new \AKEB\Cache\Cache_Memcache($cacheId, $server_name);
+		} elseif ($file_cache_enable) {
+			$this->cacheObject = new \AKEB\Cache\Cache_File($cacheId, $server_name);
 		}
 	}
 
 	public function &get() {
-		return $this->cacheObject->get();
+		return $this->cacheObject ? $this->cacheObject->get() : false;
 	}
 
 	public function isValid() {
-		return $this->cacheObject->isValid();
+		return $this->cacheObject ? $this->cacheObject->isValid() : false;
 	}
 
 	public function getTTL() {
-		return $this->cacheObject->getTTL();
+		return $this->cacheObject ? $this->cacheObject->getTTL() : 0;
 	}
 
 	public function tryLock() {
-		return $this->cacheObject->tryLock();
+		return $this->cacheObject ? $this->cacheObject->tryLock() : false;
 	}
 
 	public function freeLock() {
-		return $this->cacheObject->freeLock();
+		return $this->cacheObject ? $this->cacheObject->freeLock() : true;
 	}
 
 	public function update($data, $ttl) {
-		return $this->cacheObject->update($data, $ttl);
+		return $this->cacheObject ? $this->cacheObject->update($data, $ttl) : false;
 	}
 
 	public function remove() {
-		return $this->cacheObject->remove();
+		return $this->cacheObject ? $this->cacheObject->remove() : true;
 	}
 }

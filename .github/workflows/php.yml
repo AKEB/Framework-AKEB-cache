@@ -162,3 +162,23 @@ jobs:
         run: memcached -p 11212 -d -u memcache
       - name: Run Tests
         run: XDEBUG_MODE=coverage php8.3 vendor/bin/phpunit --coverage-text --colors=never -c phpunit_8.3.xml
+
+  test_8_4:
+    runs-on: ubuntu-latest
+    container: akeb/nginx-php-fpm-8.4:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cleanup
+        run: rm -rf vendor composer.lock
+      - name: Update apt-get
+        run: apt-get update
+      - name: Install memcached
+        run: apt-get install -y memcached
+      - name: Install dependencies
+        run: composer install --prefer-install=auto --no-interaction
+      - name: Run Memcached1
+        run: memcached -p 11211 -d -u memcache
+      - name: Run Memcached2
+        run: memcached -p 11212 -d -u memcache
+      - name: Run Tests
+        run: XDEBUG_MODE=coverage php8.4 vendor/bin/phpunit --coverage-text --colors=never -c phpunit_8.4.xml
