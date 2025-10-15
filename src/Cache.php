@@ -67,7 +67,8 @@ class Cache {
 	}
 
 	public function &get() {
-		return $this->cacheObject ? $this->cacheObject->get() : false;
+		$status = false;
+		return $this->cacheObject ? $this->cacheObject->get() : $status;
 	}
 
 	public function isValid() {
